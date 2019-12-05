@@ -6,6 +6,7 @@
 package dao;
 
 import database.Conexao;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,14 +27,15 @@ public class DoadorDAO extends Conexao{
     
     
     public void insere(Doador doador){
-     String sql = "insert into Animal(nome, raca, idade, porte, dono) values(?,?,?,?,?)";
+     String sql = "insert into Doador(nome, endereco, nascimento, nome_mae, nome_pai, cpf) values(?,?,?,?,?,?)";
      try{
          PreparedStatement ps = getCon().prepareStatement(sql);
          ps.setString(1, doador.getNome());
          ps.setString(2, doador.getEndereco());
-         ps.setString(3, doador.getNomeMae());
-         ps.setString(4, doador.getNomePai());
-         ps.setString(5, doador.getCpf());
+         ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
+         ps.setString(4, doador.getNomeMae());
+         ps.setString(5, doador.getNomePai());
+         ps.setString(6, doador.getCpf());
          ps.execute();
      }catch (SQLException e){
          JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
@@ -41,15 +43,16 @@ public class DoadorDAO extends Conexao{
     }
     
     public void atualiza(Doador doador){
-        String sql ="update Animal set nome=?, raca=?, idade=?, porte=?, dono=? where codigo=?";
+        String sql ="update Doador set nome=?, endereco=?, nascimento=?, nome_mae=?, nome_pai=?, cpf=? where id=?";
         try{
            PreparedStatement ps = getCon().prepareStatement(sql);
             ps.setString(1, doador.getNome());
             ps.setString(2, doador.getEndereco());
-            ps.setString(3, doador.getNomeMae());
-            ps.setString(4, doador.getNomePai());
-            ps.setString(5, doador.getCpf());
-            ps.setInt(6, doador.getId());
+            ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
+            ps.setString(4, doador.getNomeMae());
+            ps.setString(5, doador.getNomePai());
+            ps.setString(6, doador.getCpf());
+            ps.setInt(7, doador.getId());
            ps.execute();
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
@@ -76,6 +79,13 @@ public class DoadorDAO extends Conexao{
             while(rs.next()){
                 Doador registro = new Doador();
                 registro.setId(rs.getInt("id"));
+                registro.setNome(rs.getString("nome"));
+                registro.setEndereco(rs.getString("endereco"));
+                registro.setNomeMae(rs.getString("nome_mae"));
+                registro.setNomePai(rs.getString("nome_pai"));
+                registro.setCpf(rs.getString("cpf"));
+                registro.setDataNascimento(new java.util.Date(rs.getDate("nascimento").getTime()));
+                
                 //FAZER
                 lista.add(registro);
             }           

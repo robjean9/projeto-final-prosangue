@@ -28,7 +28,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
        FXMLLoader loader = new FXMLLoader();
         
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/Usuarios.fxml");
+//        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/Usuarios.fxml");
+        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/ListaDoadores.fxml");
         Parent root = loader.load(fxmlStream);
         
         Scene scene = new Scene(root);
