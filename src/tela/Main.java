@@ -29,12 +29,12 @@ public class Main extends Application {
        FXMLLoader loader = new FXMLLoader();
         
 //        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/Usuarios.fxml");
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/ListaDoadores.fxml");
+        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/Main.fxml");
         Parent root = loader.load(fxmlStream);
         
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Controle de Usuários!");
+        primaryStage.setTitle("PRO SANGUE");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

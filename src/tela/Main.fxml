@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.MainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Cadastros">
+            <items>
+              <MenuItem fx:id="miUsuarios" mnemonicParsing="false" onAction="#openUsuarios" text="Usuários" />
+                  <MenuItem fx:id="miDoadores" mnemonicParsing="false" onAction="#openDoadores" text="Doadores" />
+                  <MenuItem fx:id="miExames" mnemonicParsing="false" onAction="#openExames" text="Exames" />
+                  <MenuItem fx:id="miQuestionario" mnemonicParsing="false" onAction="#openQuestionario" text="Questionário" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Doações">
+            <items>
+              <MenuItem fx:id="miNovaDoacao" mnemonicParsing="false" onAction="#openNewDoacao" text="Nova doação" />
+                  <MenuItem fx:id="miListDoacao" mnemonicParsing="false" onAction="#openDoacoes" text="Ver doações" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Sobre">
+            <items>
+              <MenuItem fx:id="miSair" mnemonicParsing="false" onAction="#sair" text="Sair" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

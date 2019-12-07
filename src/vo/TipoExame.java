@@ -18,6 +18,13 @@ public class TipoExame {
         this.tipo = tipo;
     }
 
+    public TipoExame() {
+        this.id = 0;
+        this.tipo = "";
+    }
+    
+    
+
     /**
      * @return the id
      */

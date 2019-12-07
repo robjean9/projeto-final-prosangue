@@ -19,9 +19,9 @@ import vo.Doador;
  *
  * @author robson
  */
-public class DoadorDAO extends Conexao{
+public class DoacaoDAO extends Conexao{
 
-    public DoadorDAO() {
+    public DoacaoDAO() {
         super();
     }
     

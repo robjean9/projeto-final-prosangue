@@ -14,79 +14,63 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import vo.Doador;
+import vo.Questao;
 
 /**
  *
  * @author robson
  */
-public class DoadorDAO extends Conexao{
+public class QuestionarioDAO extends Conexao{
 
-    public DoadorDAO() {
+    public QuestionarioDAO() {
         super();
     }
     
     
-    public void insere(Doador doador){
-     String sql = "insert into Doador(nome, endereco, nascimento, nome_mae, nome_pai, cpf) values(?,?,?,?,?,?)";
+    public void insere(Questao questao){
+     String sql = "insert into Questao (questao) values(?)";
      try{
          PreparedStatement ps = getCon().prepareStatement(sql);
-         ps.setString(1, doador.getNome());
-         ps.setString(2, doador.getEndereco());
-         ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
-         ps.setString(4, doador.getNomeMae());
-         ps.setString(5, doador.getNomePai());
-         ps.setString(6, doador.getCpf());
+         ps.setString(1, questao.getQuestao());
          ps.execute();
      }catch (SQLException e){
          JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
      }
     }
     
-    public void atualiza(Doador doador){
-        String sql ="update Doador set nome=?, endereco=?, nascimento=?, nome_mae=?, nome_pai=?, cpf=? where id=?";
+    public void atualiza(Questao questao){
+        String sql ="update Questao set questao=? where id=?";
         try{
            PreparedStatement ps = getCon().prepareStatement(sql);
-            ps.setString(1, doador.getNome());
-            ps.setString(2, doador.getEndereco());
-            ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
-            ps.setString(4, doador.getNomeMae());
-            ps.setString(5, doador.getNomePai());
-            ps.setString(6, doador.getCpf());
-            ps.setInt(7, doador.getId());
+            ps.setString(1, questao.getQuestao());
+            ps.setInt(2, questao.getId());
            ps.execute();
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
         }
     }
     
-    public void excluir(int doadorId){
-        String sql = "delete from Doador where id=?";
+    public void excluir(int questaoId){
+        String sql = "delete from Questao where id=?";
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
-            ps.setInt(1, doadorId);
+            ps.setInt(1, questaoId);
             ps.execute();            
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
         }
     }
     
-     public ArrayList<Doador> pesquisa(){
-        String sql = "select * from Doador";
+     public ArrayList<Questao> pesquisa(){
+        String sql = "select * from Questao";
         ArrayList lista = new ArrayList();
         try{
             Statement st = getCon().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                Doador registro = new Doador();
+                Questao registro = new Questao();
                 registro.setId(rs.getInt("id"));
-                registro.setNome(rs.getString("nome"));
-                registro.setEndereco(rs.getString("endereco"));
-                registro.setNomeMae(rs.getString("nome_mae"));
-                registro.setNomePai(rs.getString("nome_pai"));
-                registro.setCpf(rs.getString("cpf"));
-                registro.setDataNascimento(new java.util.Date(rs.getDate("nascimento").getTime()));
-                
-                //FAZER
+                registro.setQuestao(rs.getString("questao"));
                 lista.add(registro);
             }           
         }catch(SQLException e){
@@ -96,14 +80,15 @@ public class DoadorDAO extends Conexao{
     }
     
      
-     public Doador localiza(int doadorId){
-        String sql = "select * from Doador where id ='" + doadorId +"'";
-        Doador registro = new Doador();
+     public Questao localiza(int questaoId){
+        String sql = "select * from Questao where id ='" + questaoId +"'";
+        Questao registro = new Questao();
         try{
             Statement st = getCon().createStatement();
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
-                registro.setNome(rs.getString("nome"));
+                registro.setQuestao(rs.getString("questao"));
+                registro.setId(rs.getInt("id"));
                 //FAZER
             }
         }catch (SQLException e){

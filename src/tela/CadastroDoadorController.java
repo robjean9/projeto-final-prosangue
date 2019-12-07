@@ -28,7 +28,7 @@ import vo.Doador;
 public class CadastroDoadorController implements Initializable {
     
     
-    private boolean novo;
+    private boolean novo = true;
     private Doador doador;
     private DoadorDAO doadorDAO;
     @FXML

@@ -146,6 +146,8 @@ public class ListaDoadoresController implements Initializable {
 
     @FXML
     private void excluir(ActionEvent event) {
+        doadorDAO.excluir(tvDoadores.getSelectionModel().getSelectedItem().getId());
+        this.atualizar();
     }
 
     @FXML

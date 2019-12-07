@@ -18,6 +18,13 @@ public class Questao {
         this.questao = questao;
     }
 
+   public Questao() {
+        this.questao = "";
+        this.id = 0;
+    }
+    
+    
+
     /**
      * @return the id
      */
