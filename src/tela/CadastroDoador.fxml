@@ -50,7 +50,7 @@
                   <Label text="Nome da Mãe:" GridPane.rowIndex="4" />
                   <TextField fx:id="tNome" GridPane.columnIndex="1" />
                   <TextField fx:id="tEndereco" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="tData" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="tData" prefHeight="27.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="tPai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="tMae" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="tCpf" onKeyReleased="#handleCpfFormatter" GridPane.columnIndex="1" GridPane.rowIndex="5" />

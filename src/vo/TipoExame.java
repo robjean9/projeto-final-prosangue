@@ -23,6 +23,11 @@ public class TipoExame {
         this.tipo = "";
     }
     
+    @Override
+    public String toString() {
+       return getTipo();
+    }
+
     
 
     /**

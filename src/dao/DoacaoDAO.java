@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import vo.Doacao;
 import vo.Doador;
 
 /**
@@ -71,21 +72,19 @@ public class DoacaoDAO extends Conexao{
     }
     
      public ArrayList<Doador> pesquisa(){
-        String sql = "select * from Doador";
+        String sql = "select d.nome AS nome_doador, d.cpf AS cpf_doador, d.nascimento AS nascimento_doador, Doacao.*  from  doacao INNER JOIN Doador AS d ON Doacao.doador_id=d.id";
         ArrayList lista = new ArrayList();
         try{
             Statement st = getCon().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                Doador registro = new Doador();
+                Doacao registro = new Doacao();
                 registro.setId(rs.getInt("id"));
-                registro.setNome(rs.getString("nome"));
-                registro.setEndereco(rs.getString("endereco"));
-                registro.setNomeMae(rs.getString("nome_mae"));
-                registro.setNomePai(rs.getString("nome_pai"));
-                registro.setCpf(rs.getString("cpf"));
-                registro.setDataNascimento(new java.util.Date(rs.getDate("nascimento").getTime()));
-                
+                registro.setNomeDoador(rs.getString("nome_doador"));
+                registro.setCpfDoador(rs.getString("cpf_doador"));
+                registro.setDataNacDoador(new java.util.Date(rs.getDate("nascimento_doador").getTime()));
+                registro.setDoadorId(rs.getInt("doador_id"));
+                registro.setDataHora( new java.util.Date(rs.getDate("data_hora").getTime()));
                 //FAZER
                 lista.add(registro);
             }           

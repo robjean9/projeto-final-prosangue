@@ -13,14 +13,19 @@ public class Exame {
     private Integer id;
     private Integer tipoExameId;
     private String resultado;
-    private Integer doadorId;
+    private Integer doacaoId;
 
-    public Exame(Integer id, Integer tipoExameId, String resultado, Integer doadorId) {
+    public Exame(Integer id, Integer tipoExameId, String resultado, Integer doacaoId) {
         this.id = id;
         this.tipoExameId = tipoExameId;
         this.resultado = resultado;
-        this.doadorId = doadorId;
+        this.doacaoId = doacaoId;
     }
+
+    public Exame() {
+    }
+    
+    
     
     
 
@@ -69,15 +74,15 @@ public class Exame {
     /**
      * @return the doadorId
      */
-    public Integer getDoadorId() {
-        return doadorId;
+    public Integer getDoacaoId() {
+        return doacaoId;
     }
 
     /**
      * @param doadorId the doadorId to set
      */
-    public void setDoadorId(Integer doadorId) {
-        this.doadorId = doadorId;
+    public void setDoacaoId(Integer doacaoId) {
+        this.doacaoId = doacaoId;
     }
     
     
