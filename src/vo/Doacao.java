@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vo;
 
 import java.util.Date;
@@ -12,10 +7,11 @@ import java.util.Date;
  * @author robson
  */
 public class Doacao {
+
     private Integer id;
     private Date dataHora;
-    private Integer doadorId; 
-    private Doador daodor;
+    private Integer doadorId;
+    private Doador doador;
     private String nomeDoador;
     private String cpfDoador;
     private Date dataNacDoador;
@@ -29,9 +25,6 @@ public class Doacao {
 
     public Doacao() {
     }
-    
-    
-    
 
     /**
      * @return the id
@@ -78,15 +71,15 @@ public class Doacao {
     /**
      * @return the daodor
      */
-    public Doador getDaodor() {
-        return daodor;
+    public Doador getDoador() {
+        return doador;
     }
 
     /**
      * @param daodor the daodor to set
      */
-    public void setDaodor(Doador daodor) {
-        this.daodor = daodor;
+    public void setDoador(Doador daodor) {
+        this.doador = daodor;
     }
 
     /**
@@ -144,7 +137,5 @@ public class Doacao {
     public void setTipoSanguineoDoador(String tipoSanguineoDoador) {
         this.tipoSanguineoDoador = tipoSanguineoDoador;
     }
- 
-    
-    
+
 }

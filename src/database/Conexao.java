@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
@@ -21,36 +16,37 @@ public class Conexao {
     private String usuario;
     private String senha;
     private String erro;
-    
-    public Conexao(){
-       this.setDriver("com.mysql.jdbc.Driver");
-       this.setUrl("jdbc:mysql://localhost/PROSANGUE");
-       this.setUsuario("root");
-       this.setSenha("root");
-       this.setErro("");
-       this.setCon(null);
-       this.conectar();
-   }
-    
-    public void conectar(){
-       try{
-           Class.forName(this.getDriver());
-           this.setCon(DriverManager.getConnection(this.getUrl(), this.getUsuario(), this.getSenha()));
-       } catch(Exception e){
-           this.setErro("Erro na conexao\n" + e.getMessage());
-           
-       }
-   }
-   
-   public void fecha(){
-       try{
-           con.close();
-       }catch(Exception e){
-           JOptionPane.showMessageDialog(null, "Erro ao fechar conexão/n" + e.getMessage());
-       }
-   }
-    
-    
+
+    public Conexao() {
+        config();
+    }
+
+    private void config() {
+        this.setDriver("com.mysql.jdbc.Driver");
+        this.setUrl("jdbc:mysql://localhost/prosangue?useTimezone=true&serverTimezone=UTC");
+        this.setUsuario("root");
+        this.setSenha("root");
+        this.setErro("");
+        this.setCon(null);
+        this.conectar();
+    }
+
+    public void conectar() {
+        try {
+            Class.forName(this.getDriver());
+            this.setCon(DriverManager.getConnection(this.getUrl(), this.getUsuario(), this.getSenha()));
+        } catch (Exception e) {
+            this.setErro("Erro na conexao\n" + e.getMessage());
+        }
+    }
+
+    public void fecha() {
+        try {
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao fechar conexão/n" + e.getMessage());
+        }
+    }
 
     /**
      * @return the con
@@ -135,7 +131,5 @@ public class Conexao {
     public void setErro(String erro) {
         this.erro = erro;
     }
-    
-    
-    
+
 }

@@ -12,6 +12,7 @@ import java.util.Date;
  * @author robson
  */
 public class Doador {
+
     private Integer id;
     private String nome;
     private String endereco;
@@ -32,9 +33,11 @@ public class Doador {
 
     public Doador() {
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
+    }
 
     /**
      * @return the id
@@ -133,10 +136,5 @@ public class Doador {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    
-    
-    
-    
-    
+
 }

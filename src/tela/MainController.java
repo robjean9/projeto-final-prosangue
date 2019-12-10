@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela;
 
 import java.io.FileInputStream;
@@ -19,28 +14,33 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import static tela.Main.MAC;
+import static tela.Main.WINDOWS;
 
 /**
  * FXML Controller class
  *
  * @author robson
+ * @author Rafael
  */
 public class MainController implements Initializable {
 
     @FXML
-    private MenuItem miUsuarios;
+    private MenuItem menuItemUsuarios;
     @FXML
-    private MenuItem miDoadores;
+    private MenuItem menuItemDoadores;
     @FXML
-    private MenuItem miExames;
+    private MenuItem menuItemQuestionario;
     @FXML
-    private MenuItem miQuestionario;
+    private MenuItem menuItemNovaDoacao;
     @FXML
-    private MenuItem miNovaDoacao;
+    private MenuItem menuItemListDoacao;
     @FXML
-    private MenuItem miListDoacao;
+    private MenuItem menuItemSair;
     @FXML
-    private MenuItem miSair;
+    private MenuItem menuItemCriarBanco;
+    @FXML
+    private MenuItem menuItemTipoExames;
 
     /**
      * Initializes the controller class.
@@ -48,68 +48,73 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void openUsuarios(ActionEvent event) throws FileNotFoundException, IOException {
-        FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/Usuarios.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
-        Scene newScene = new Scene(root);
-        Stage window = new Stage();
-        window.setScene(newScene);
-        window.show();
+        openWindow(returnPane("Usuarios.fxml"));
     }
 
     @FXML
     private void openDoadores(ActionEvent event) throws IOException {
-         FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/ListaDoadores.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
-        Scene newScene = new Scene(root);
-        Stage window = new Stage();
-        window.setScene(newScene);
-        window.show();
+        openWindow(returnPane("ListaDoadores.fxml"));
     }
 
     @FXML
-    private void openExames(ActionEvent event) throws IOException {
-         FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/TipoExame.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
-        Scene newScene = new Scene(root);
-        Stage window = new Stage();
-        window.setScene(newScene);
-        window.show();
+    private void openTipoExames(ActionEvent event) throws IOException {
+        openWindow(returnPane("TipoExame.fxml"));
     }
 
     @FXML
     private void openQuestionario(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/ListaQuestionario.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
-        Scene newScene = new Scene(root);
-        Stage window = new Stage();
-        window.setScene(newScene);
-        window.show();
+        openWindow(returnPane("ListaQuestionario.fxml"));
     }
 
     @FXML
     private void openNewDoacao(ActionEvent event) throws IOException {
-         
+        openWindow(returnPane("CadastroDoacao.fxml"));
     }
 
     @FXML
-    private void openDoacoes(ActionEvent event) {
+    private void openDoacoes(ActionEvent event) throws IOException {
+        openWindow(returnPane("Doacoes.fxml"));
     }
 
     @FXML
     private void sair(ActionEvent event) {
         Platform.exit();
     }
-    
+
+    @FXML
+    private void onCriarBanco(ActionEvent event) throws IOException {
+        openWindow(returnPane("ConfigurarBanco.fxml"));
+    }
+
+    @FXML
+    private void onSobre(ActionEvent event) {
+
+    }
+
+    private void openWindow(Pane root) {
+        Scene newScene = new Scene(root);
+        Stage window = new Stage();
+        window.setScene(newScene);
+        window.show();
+    }
+
+    private Pane returnPane(String name) throws IOException {
+        Pane pane = null;
+        switch (Main.getInstance().getPlatform()) {
+            case WINDOWS:
+                pane = FXMLLoader.load(getClass().getResource(name));
+                break;
+            case MAC:
+                FXMLLoader loader = new FXMLLoader();
+                FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/" + name);
+                pane = loader.load(fxmlStream);
+                break;
+        }
+        return pane;
+    }
+
 }

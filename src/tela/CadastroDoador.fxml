@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
@@ -12,12 +13,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.CadastroDoadorController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.CadastroDoadorController">
    <bottom>
       <ButtonBar prefHeight="0.0" prefWidth="581.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="bSalvar" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+          <Button fx:id="buttonSalvar" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+            <Button fx:id="buttonCancelar" mnemonicParsing="false" onAction="#onCancelar" text="Cancelar" />
         </buttons>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </ButtonBar>
    </bottom>
    <top>
@@ -28,10 +33,10 @@
                   <Font name="Montserrat Bold" size="16.0" />
                </font>
             </Label>
-            <GridPane layoutX="206.0" layoutY="65.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+            <GridPane layoutX="66.0" layoutY="65.0" prefHeight="180.0" prefWidth="449.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="85.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="116.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="449.0" minWidth="10.0" prefWidth="309.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -48,12 +53,12 @@
                   <Label text="Data Nascimento:" GridPane.rowIndex="2" />
                   <Label text="Nome do Pai:" GridPane.rowIndex="3" />
                   <Label text="Nome da Mãe:" GridPane.rowIndex="4" />
-                  <TextField fx:id="tNome" GridPane.columnIndex="1" />
-                  <TextField fx:id="tEndereco" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="tData" prefHeight="27.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="tPai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="tMae" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="tCpf" onKeyReleased="#handleCpfFormatter" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="textFieldNome" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldEndereco" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="datePickerData" prefHeight="27.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textFieldPai" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textFieldMae" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="textFieldCpf" onKeyReleased="#handleCpfFormatter" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>

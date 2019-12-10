@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import javafx.scene.control.ContentDisplay;
@@ -14,7 +9,8 @@ import vo.Usuario;
  *
  * @author robson
  */
-public class PasswordFieldCell extends TableCell<Usuario, String>{
+public class PasswordFieldCell extends TableCell<Usuario, String> {
+
     private PasswordField passwordField;
 
     public PasswordFieldCell() {
@@ -27,12 +23,12 @@ public class PasswordFieldCell extends TableCell<Usuario, String>{
     @Override
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
-        if(!isEmpty()){
+        if (!isEmpty()) {
             passwordField.setText(item);
             setGraphic(passwordField);
-        }else{
+        } else {
             setGraphic(null);
         }
     }
-            
+
 }

@@ -5,28 +5,29 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
+          <Menu mnemonicParsing="false" text="Ambiente">
+            <items>
+                  <MenuItem fx:id="menuItemCriarBanco" mnemonicParsing="false" onAction="#onCriarBanco" text="Criar banco de dados" />
+                  <MenuItem mnemonicParsing="false" onAction="#onSobre" text="Sobre" />
+              <MenuItem fx:id="menuItemSair" mnemonicParsing="false" onAction="#sair" text="Sair" />
+            </items>
+          </Menu>
           <Menu mnemonicParsing="false" text="Cadastros">
             <items>
-              <MenuItem fx:id="miUsuarios" mnemonicParsing="false" onAction="#openUsuarios" text="Usuários" />
-                  <MenuItem fx:id="miDoadores" mnemonicParsing="false" onAction="#openDoadores" text="Doadores" />
-                  <MenuItem fx:id="miExames" mnemonicParsing="false" onAction="#openExames" text="Exames" />
-                  <MenuItem fx:id="miQuestionario" mnemonicParsing="false" onAction="#openQuestionario" text="Questionário" />
+              <MenuItem fx:id="menuItemUsuarios" mnemonicParsing="false" onAction="#openUsuarios" text="Usuários" />
+                  <MenuItem fx:id="menuItemDoadores" mnemonicParsing="false" onAction="#openDoadores" text="Doadores" />
+                  <MenuItem fx:id="menuItemTipoExames" mnemonicParsing="false" onAction="#openTipoExames" text="Tipo de Exames" />
+                  <MenuItem fx:id="menuItemQuestionario" mnemonicParsing="false" onAction="#openQuestionario" text="Questionário" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Doações">
             <items>
-              <MenuItem fx:id="miNovaDoacao" mnemonicParsing="false" onAction="#openNewDoacao" text="Nova doação" />
-                  <MenuItem fx:id="miListDoacao" mnemonicParsing="false" onAction="#openDoacoes" text="Ver doações" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Sobre">
-            <items>
-              <MenuItem fx:id="miSair" mnemonicParsing="false" onAction="#sair" text="Sair" />
+              <MenuItem fx:id="menuItemNovaDoacao" mnemonicParsing="false" onAction="#openNewDoacao" text="Nova doação" />
+                  <MenuItem fx:id="menuItemListDoacao" mnemonicParsing="false" onAction="#openDoacoes" text="Ver doações" />
             </items>
           </Menu>
         </menus>

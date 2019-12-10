@@ -1,3 +1,9 @@
+drop database if exists prosangue;
+
+create database prosangue;
+
+use prosangue;
+
 CREATE TABLE `PROSANGUE`.`Doador` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.DoacoesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.DoacoesController">
        <stylesheets>
         <URL value="@/css/doacoes.css" />
     </stylesheets>
@@ -15,7 +15,6 @@
       <TableView fx:id="tvDoacoes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="tvcNome" editable="false" prefWidth="75.0" text="Nome do Doador" />
-            <TableColumn fx:id="tvcDataNasc1" editable="false" prefWidth="75.0" text="Tipo Sanguineo" />
             <TableColumn fx:id="tvcDataNasc" editable="false" prefWidth="75.0" text="Data Nasc." />
             <TableColumn fx:id="tvcCpf" editable="false" prefWidth="75.0" text="CPF" />
             <TableColumn fx:id="tvcDataDoacao" editable="false" prefWidth="75.0" text="Data da Doação" />

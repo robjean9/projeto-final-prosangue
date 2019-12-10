@@ -6,109 +6,114 @@
 package dao;
 
 import database.Conexao;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import vo.Doacao;
-import vo.Doador;
 
 /**
  *
  * @author robson
  */
-public class DoacaoDAO extends Conexao{
+public class DoacaoDAO extends Conexao {
+    
+    private SimpleDateFormat dateFormat;
+    private SimpleDateFormat dateHourFormat;
 
     public DoacaoDAO() {
         super();
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateHourFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
-    
-    
-    public void insere(Doador doador){
-     String sql = "insert into Doador(nome, endereco, nascimento, nome_mae, nome_pai, cpf) values(?,?,?,?,?,?)";
-     try{
-         PreparedStatement ps = getCon().prepareStatement(sql);
-         ps.setString(1, doador.getNome());
-         ps.setString(2, doador.getEndereco());
-         ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
-         ps.setString(4, doador.getNomeMae());
-         ps.setString(5, doador.getNomePai());
-         ps.setString(6, doador.getCpf());
-         ps.execute();
-     }catch (SQLException e){
-         JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
-     }
-    }
-    
-    public void atualiza(Doador doador){
-        String sql ="update Doador set nome=?, endereco=?, nascimento=?, nome_mae=?, nome_pai=?, cpf=? where id=?";
-        try{
-           PreparedStatement ps = getCon().prepareStatement(sql);
-            ps.setString(1, doador.getNome());
-            ps.setString(2, doador.getEndereco());
-            ps.setDate(3, new Date(doador.getDataNascimento().getTime()));
-            ps.setString(4, doador.getNomeMae());
-            ps.setString(5, doador.getNomePai());
-            ps.setString(6, doador.getCpf());
-            ps.setInt(7, doador.getId());
-           ps.execute();
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
-        }
-    }
-    
-    public void excluir(int doadorId){
-        String sql = "delete from Doador where id=?";
-        try{
+
+    public void insere(Doacao doacao) {
+        String sql = "insert into doacao(data_hora, doador_id) values(?,?)";
+        try {
             PreparedStatement ps = getCon().prepareStatement(sql);
-            ps.setInt(1, doadorId);
-            ps.execute();            
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
+            ps.setString(1, dateFormat.format(doacao.getDataHora()));
+            ps.setInt(2, doacao.getDoadorId());
+            
+            ps.execute();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
         }
     }
-    
-     public ArrayList<Doador> pesquisa(){
-        String sql = "select d.nome AS nome_doador, d.cpf AS cpf_doador, d.nascimento AS nascimento_doador, Doacao.*  from  doacao INNER JOIN Doador AS d ON Doacao.doador_id=d.id";
+
+    public void atualiza(Doacao doacao) {
+        String sql = "update doacao set data_hora=?, doador_id=? where id = ?";
+        try {
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ps.setString(1, dateFormat.format(doacao.getDataHora()));
+            ps.setInt(2, doacao.getDoadorId());
+            ps.setInt(3, doacao.getId());
+
+            ps.execute();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
+        }
+    }
+
+    public void excluir(int doacaoId) {
+        String sql = "delete from doacao where id=?";
+        try {
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ps.setInt(1, doacaoId);
+            ps.execute();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
+        }
+    }
+
+    public ArrayList<Doacao> pesquisa() throws ParseException {
+        String sql = "select d.nome as nome_doador\n"
+                + "        , d.cpf as cpf_doador\n"
+                + "        , d.nascimento as nascimento_doador\n"
+                + "        , doacao.*\n"
+                + "     from doacao\n"
+                + "    inner join doador as d\n"
+                + "       on doacao.doador_id = d.id\n";
         ArrayList lista = new ArrayList();
-        try{
+        try {
             Statement st = getCon().createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Doacao registro = new Doacao();
                 registro.setId(rs.getInt("id"));
                 registro.setNomeDoador(rs.getString("nome_doador"));
                 registro.setCpfDoador(rs.getString("cpf_doador"));
-                registro.setDataNacDoador(new java.util.Date(rs.getDate("nascimento_doador").getTime()));
+                registro.setDataNacDoador(dateFormat.parse(rs.getString("nascimento_doador")));
                 registro.setDoadorId(rs.getInt("doador_id"));
-                registro.setDataHora( new java.util.Date(rs.getDate("data_hora").getTime()));
+                registro.setDataHora(dateHourFormat.parse(rs.getString("data_hora")));
                 //FAZER
                 lista.add(registro);
-            }           
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
         }
         return lista;
     }
-    
-     
-     public Doador localiza(int doadorId){
-        String sql = "select * from Doador where id ='" + doadorId +"'";
-        Doador registro = new Doador();
-        try{
+
+    public Doacao localiza(int doacaoId) throws ParseException {
+        String sql = "select * from doacao where id ='" + doacaoId + "'";
+        Doacao registro = new Doacao();
+        try {
             Statement st = getCon().createStatement();
             ResultSet rs = st.executeQuery(sql);
-            if(rs.next()){
-                registro.setNome(rs.getString("nome"));
+            if (rs.next()) {
+                registro.setId(rs.getInt("id"));
+                registro.setDataHora(dateFormat.parse(rs.getString("data_hora")));
+                registro.setDoadorId(rs.getInt("doador_id"));
                 //FAZER
             }
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Erro SQL:" +e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
         }
         return registro;
     }
-    
+
 }

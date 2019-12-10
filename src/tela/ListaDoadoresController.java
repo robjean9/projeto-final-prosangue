@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela;
 
 import dao.DoadorDAO;
@@ -10,15 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,7 +26,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import static tela.Main.MAC;
+import static tela.Main.WINDOWS;
 import vo.Doador;
 
 /**
@@ -41,87 +38,86 @@ import vo.Doador;
 public class ListaDoadoresController implements Initializable {
 
     @FXML
-    private Button bCriarNovo;
+    private Button buttonCriarNovo;
     @FXML
-    private Button bEditar;
+    private Button buttonEditar;
     @FXML
-    private Button bExcluir;
+    private Button buttonExcluir;
     @FXML
-    private Button bAtualizar;
+    private Button buttonAtualizar;
     @FXML
-    private TableView<Doador> tvDoadores;
+    private TableView<Doador> tableViewDoadores;
     @FXML
-    private TableColumn<Doador, String> tvcNome;
+    private TableColumn<Doador, String> tableColumnNome;
     @FXML
-    private TableColumn<Doador, String> tvcEndereco;
+    private TableColumn<Doador, String> tableColumnEndereco;
     @FXML
-    private TableColumn<Doador, Date> tvcDataNasc;
+    private TableColumn<Doador, Date> tableColumnDataNasc;
     @FXML
-    private TableColumn<Doador, String> tvcNomePai;
+    private TableColumn<Doador, String> tableColumnNomePai;
     @FXML
-    private TableColumn<Doador, String> tvcNomeMae;
+    private TableColumn<Doador, String> tableColumnNomeMae;
     @FXML
-    private TableColumn<Doador, String> tvcCpf;
-    
-    private ObservableList<Doador> lDoador;
-    
+    private TableColumn<Doador, String> tableColumnCpf;
+
+    private ObservableList<Doador> oListDoador;
     private DoadorDAO doadorDAO;
+    private HashMap<String, FXMLLoader> loaders;
+    private SimpleDateFormat dateFormat;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+        loaders = new HashMap<>();
         doadorDAO = new DoadorDAO();
-        
-        
-        
-         tvcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-         tvcEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
-         tvcDataNasc.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
-         tvcNomeMae.setCellValueFactory(new PropertyValueFactory<>("nomeMae"));
-         tvcNomePai.setCellValueFactory(new PropertyValueFactory<>("nomePai"));
-         tvcCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
- 
-         tvcDataNasc.setCellFactory(column -> {
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        tableColumnDataNasc.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
+        tableColumnNomeMae.setCellValueFactory(new PropertyValueFactory<>("nomeMae"));
+        tableColumnNomePai.setCellValueFactory(new PropertyValueFactory<>("nomePai"));
+        tableColumnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+
+        tableColumnDataNasc.setCellFactory(column -> {
             return new TableCell<Doador, Date>() {
                 @Override
                 protected void updateItem(Date item, boolean empty) {
-                    super.updateItem(item, empty); 
-                    
-                    if(item == null || empty){
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
                         setText(null);
-                    }else{
-                        setText(formatter.format(item.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+                    } else {
+                        setText(dateFormat.format(item));
                     }
                 }
             };
-         });
-         this.atualizar();
-         
-        
-    }    
-    
-    private void atualizar(){
-        lDoador = FXCollections.observableArrayList(doadorDAO.pesquisa());
-        tvDoadores.setItems(lDoador);
+        });
+        try {
+            this.atualizar();
+        } catch (ParseException ex) {
+            Logger.getLogger(ListaDoadoresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @FXML
+    private void atualizar() throws ParseException {
+        oListDoador = FXCollections.observableArrayList(doadorDAO.pesquisa());
+        tableViewDoadores.setItems(oListDoador);
     }
 
     @FXML
     private void novo(ActionEvent event) throws FileNotFoundException, IOException {
-        
-        FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/CadastroDoador.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
+        Pane root = returnPane("CadastroDoador.fxml");
         Scene newScene = new Scene(root);
-        
-        CadastroDoadorController tela = loader.getController();
+
+        CadastroDoadorController tela = loaders.get("CadastroDoador.fxml").getController();
         tela.setNovo(true);
-        
-        
+
         Stage window = new Stage();
         window.setScene(newScene);
         window.show();
@@ -129,30 +125,44 @@ public class ListaDoadoresController implements Initializable {
 
     @FXML
     private void editar(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        
-        FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/CadastroDoador.fxml");
-        Pane root = (Pane) loader.load(fxmlStream);
+        Pane root = returnPane("CadastroDoador.fxml");
         Scene newScene = new Scene(root);
-        
-        CadastroDoadorController tela = loader.getController();
+
+        CadastroDoadorController tela = loaders.get("CadastroDoador.fxml").getController();
         tela.setNovo(false);
-        tela.setDoador(tvDoadores.getSelectionModel().getSelectedItem());        
-        
+        tela.setDoador(tableViewDoadores.getSelectionModel().getSelectedItem());
+
         Stage window = new Stage();
         window.setScene(newScene);
         window.show();
     }
 
     @FXML
-    private void excluir(ActionEvent event) {
-        doadorDAO.excluir(tvDoadores.getSelectionModel().getSelectedItem().getId());
+    private void excluir(ActionEvent event) throws ParseException {
+        doadorDAO.excluir(tableViewDoadores.getSelectionModel().getSelectedItem().getId());
         this.atualizar();
     }
 
-    @FXML
-    private void atualizar(ActionEvent event) {
+    private void atualizar(ActionEvent event) throws ParseException {
         this.atualizar();
     }
-    
+
+    private Pane returnPane(String name) throws IOException {
+        Pane pane = null;
+        FXMLLoader loader = null;
+        switch (Main.getInstance().getPlatform()) {
+            case WINDOWS:
+                loader = new FXMLLoader(getClass().getResource(name));
+                pane = loader.load();
+                break;
+            case MAC:
+                loader = new FXMLLoader();
+                FileInputStream fxmlStream = new FileInputStream("/Users/robson/NetBeansProjects/ProjetoFinal/src/tela/" + name);
+                pane = loader.load(fxmlStream);
+                break;
+        }
+        loaders.put(name, loader);
+        return pane;
+    }
+
 }
