@@ -26,7 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
         // DEFINA A PLATAFORMA AQUI
-        setPlatform(WINDOWS);
+        setPlatform(MAC);
 
         Parent root = null;
         switch (getPlatform()) {

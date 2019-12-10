@@ -13,6 +13,10 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import javax.swing.JOptionPane;
 import vo.Doacao;
 
@@ -93,6 +97,22 @@ public class DoacaoDAO extends Conexao {
                 lista.add(registro);
             }
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
+        }
+        return lista;
+    }
+    
+    public LinkedHashMap<String, Integer> getChartData(){
+        String sql = "select d.nome, count(*) AS contagem from doacao inner join doador as d on doacao.doador_id = d.id GROUP BY doacao.doador_id";
+        LinkedHashMap<String, Integer> lista = new LinkedHashMap<>();
+        try{
+            Statement st = getCon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                lista.put(rs.getString("nome"), rs.getInt("contagem"));
+            }
+           
+        }catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro SQL:" + e.getMessage());
         }
         return lista;

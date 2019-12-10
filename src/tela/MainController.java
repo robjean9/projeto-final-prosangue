@@ -41,6 +41,8 @@ public class MainController implements Initializable {
     private MenuItem menuItemCriarBanco;
     @FXML
     private MenuItem menuItemTipoExames;
+    @FXML
+    private MenuItem menuItemGrafico;
 
     /**
      * Initializes the controller class.
@@ -94,6 +96,10 @@ public class MainController implements Initializable {
     private void onSobre(ActionEvent event) {
 
     }
+    @FXML
+    private void openGraficos(ActionEvent event) throws IOException {
+         openWindow(returnPane("Graficos.fxml"));
+    }
 
     private void openWindow(Pane root) {
         Scene newScene = new Scene(root);
@@ -116,5 +122,7 @@ public class MainController implements Initializable {
         }
         return pane;
     }
+
+   
 
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tela.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -28,6 +28,7 @@
             <items>
               <MenuItem fx:id="menuItemNovaDoacao" mnemonicParsing="false" onAction="#openNewDoacao" text="Nova doação" />
                   <MenuItem fx:id="menuItemListDoacao" mnemonicParsing="false" onAction="#openDoacoes" text="Ver doações" />
+                  <MenuItem fx:id="menuItemGrafico" mnemonicParsing="false" onAction="#openGraficos" text="Gráfico" />
             </items>
           </Menu>
         </menus>
